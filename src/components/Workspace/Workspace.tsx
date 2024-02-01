@@ -2,12 +2,13 @@
 
 import Split from "react-split";
 import ProblemDescription from "./ProblemDescription/ProblemDescription";
+import CodePlayground from "../CodePlayground/CodePlayground";
 
 const Workspace = () => {
   return (
-    <Split className="split">
+    <Split className="split" minSize={0}>
       <ProblemDescription />
-      <div>The code editor will go here</div>
+      <CodePlayground />
     </Split>
   );
 };
