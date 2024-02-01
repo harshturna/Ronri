@@ -19,7 +19,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} mx-auto max-w-[2400px]`}>
+      <body className={`${inter.className} mx-auto max-w-[2400px] text-white`}>
         <ToastContainer
           theme="dark"
           position="bottom-right"
