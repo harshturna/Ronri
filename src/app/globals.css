@@ -13,13 +13,17 @@ body {
   height: 100vh;
 }
 
+.cm-focused {
+  outline: none !important;
+}
+
 .split {
   display: flex;
   flex-direction: row;
 }
 
 .gutter {
-  background-color: rgb(26, 26, 26);
+  background-color: rgb(61 60 60);
   background-repeat: no-repeat;
   background-position: 50%;
 }
