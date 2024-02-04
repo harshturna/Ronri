@@ -1,8 +1,30 @@
-import { problems } from "@/mockProblems/problems";
-import { CheckCircle } from "lucide-react";
 import Link from "next/link";
+import { collection, query, getDocs, orderBy } from "firebase/firestore";
+import { firestore } from "@/firebase/firebase";
+import { CheckCircle } from "lucide-react";
+import { ProblemMetaData } from "@/constants/types/problems";
 
-const ProblemsTable = () => {
+async function getProblems() {
+  try {
+    const problems: ProblemMetaData[] = [];
+    const q = query(collection(firestore, "problems"), orderBy("order"));
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      problems.push(doc.data()! as ProblemMetaData);
+    });
+    return problems;
+  } catch (error) {
+    return null;
+  }
+}
+
+const ProblemsTable = async () => {
+  const problems = await getProblems();
+
+  if (!problems) {
+    return <div>There was an error retrieving the data</div>;
+  }
+
   return (
     <tbody className="text-white">
       {problems.map((problem, index) => {

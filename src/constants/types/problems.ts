@@ -19,7 +19,7 @@ export type Problem = {
   starterFunctionName: string;
 };
 
-export type DBProblem = {
+export type ProblemMetaData = {
   id: string;
   title: string;
   category: string;
@@ -27,6 +27,4 @@ export type DBProblem = {
   likes: number;
   dislikes: number;
   order: number;
-  videoId?: string;
-  link?: string;
 };
