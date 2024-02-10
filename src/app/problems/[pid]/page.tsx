@@ -3,6 +3,7 @@ import Workspace from "@/components/Workspace/Workspace";
 import { problems } from "@/constants/code-problems";
 import { firestore } from "@/firebase/firebase";
 import { doc, getDoc } from "firebase/firestore";
+import { ProblemMetaData } from "@/constants/types/problems";
 
 async function getProblemData(problemId: string) {
   try {
@@ -11,7 +12,7 @@ async function getProblemData(problemId: string) {
 
     if (!problemData) return null;
 
-    return problemData;
+    return problemData.data() as ProblemMetaData;
   } catch (error) {
     return null;
   }
@@ -23,17 +24,17 @@ const ProblemsPage = async ({ params }: { params: { pid: string } }) => {
   }
   const problem = problems[params.pid];
 
-  // console.log(params.pid);
-
   const problemData = await getProblemData(params.pid);
 
-  console.log(problemData);
+  if (!problemData) {
+    return <div>Something went wrong while retrieving problem data...</div>;
+  }
 
   problem.handlerFunction = problem.handlerFunction.toString();
   return (
     <div>
       <Topbar isProblemsPage />
-      <Workspace problem={problem} />
+      <Workspace problem={problem} problemData={problemData} />
     </div>
   );
 };
