@@ -3,8 +3,9 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useCreateUserWithEmailAndPassword } from "react-firebase-hooks/auth";
-import { auth } from "@/firebase/firebase";
+import { auth, firestore } from "@/firebase/firebase";
 import { useRouter } from "next/navigation";
+import { doc, setDoc } from "firebase/firestore";
 
 const Signup = () => {
   const router = useRouter();
@@ -31,6 +32,19 @@ const Signup = () => {
       );
 
       if (!newUser) return;
+
+      const userData = {
+        uid: newUser.user.uid,
+        email: newUser.user.email,
+        displayName: inputs.displayName,
+        createdAt: Date.now(),
+        updatedAt: Date.now(),
+        likedProblems: [],
+        solvedProblems: [],
+        starredProblems: [],
+      };
+      await setDoc(doc(firestore, "users", newUser.user.uid), userData);
+
       router.push("/");
     } catch (error: any) {}
   };
