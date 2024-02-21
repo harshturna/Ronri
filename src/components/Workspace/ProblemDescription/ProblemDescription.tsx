@@ -8,13 +8,9 @@ import { toast } from "react-toastify";
 
 interface ProblemDescriptionProps {
   problem: Problem;
-  problemData: ProblemMetaData;
 }
 
-const ProblemDescription = ({
-  problem,
-  problemData,
-}: ProblemDescriptionProps) => {
+const ProblemDescription = ({ problem }: ProblemDescriptionProps) => {
   const {
     liked,
     disliked,
@@ -22,6 +18,14 @@ const ProblemDescription = ({
     solved,
     setData: setUserData,
   } = useUsersProblemData(problem.id);
+
+  const {
+    currentProblem: problemData,
+    loading,
+    problemDifficultyClass,
+    setCurrentProblem,
+  } = useGetCurrentProblem(problem.id);
+
   const [user] = useAuthState(auth);
 
   const handleLike = async () => {
@@ -46,7 +50,34 @@ const ProblemDescription = ({
           transaction.update(problemRef, {
             likes: problemDoc.data().likes - 1,
           });
-          // TODO: probably need to use the hook:///
+          setCurrentProblem((prev) => ({ ...prev, likes: prev.likes - 1 }));
+          setUserData((prev) => ({ ...prev, liked: false }));
+        } else if (disliked) {
+          transaction.update(userRef, {
+            likedProblmes: [...userDoc.data().likedProblems, problem.id],
+            dislikedProblems: userDoc
+              .data()
+              .dislikedProblems.filter((id: string) => id !== problem.id),
+          });
+          transaction.update(problemRef, {
+            likes: problemDoc.data().likes + 1,
+            dislikes: problemDoc.data().dislikes - 1,
+          });
+          setCurrentProblem((prev) => ({
+            ...prev,
+            likes: prev.likes + 1,
+            dislikes: prev?.dislikes - 1,
+          }));
+          setUserData((prev) => ({ ...prev, disliked: false }));
+        } else {
+          transaction.update(userRef, {
+            likedProblems: [...userDoc.data().likedProblems, problem.id],
+          });
+          transaction.update(problemRef, {
+            likes: problemDoc.data().likes + 1,
+          });
+          setCurrentProblem((prev) => ({ ...prev, likes: prev.likes + 1 }));
+          setUserData((prev) => ({ ...prev, liked: true }));
         }
       }
     });
@@ -74,36 +105,39 @@ const ProblemDescription = ({
                 {problem.title}
               </div>
             </div>
-            <div className="flex items-center mt-3">
-              <div
-                className={`${
-                  problemData.difficulty === "Easy"
-                    ? "text-emerald-600"
-                    : problemData.difficulty === "Medium"
-                    ? "text-yellow-600"
-                    : "text-red-500/80"
-                } bg-emerald-100 inline-block rounded-[21px] bg-opacity-[.15] px-2.5 py-1 text-xs font-medium capitalize `}
-              >
-                {problemData.difficulty}
+            {!loading && (
+              <div className="flex items-center mt-3">
+                <div
+                  className={`${
+                    problemData?.difficulty === "Easy"
+                      ? "text-emerald-600"
+                      : problemData?.difficulty === "Medium"
+                      ? "text-yellow-600"
+                      : "text-red-500/80"
+                  } bg-emerald-100 inline-block rounded-[21px] bg-opacity-[.15] px-2.5 py-1 text-xs font-medium capitalize `}
+                >
+                  {problemData?.difficulty}
+                </div>
+                <div className="rounded p-[3px] ml-4 text-lg transition-colors duration-200 text-brand-red/80">
+                  <CheckCircle />
+                </div>
+                <div
+                  className="flex items-center cursor-pointer hover:bg-dark-fill-3 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-dark-gray-6 gap-1"
+                  onClick={handleLike}
+                >
+                  {liked && <ThumbsUp size={25} fill="rgb(187 67 44 / 0.8)" />}
+                  {!liked && <ThumbsUp size={25} />}
+                  <span className="text-xs">{problemData?.likes}</span>
+                </div>
+                <div className="flex items-center cursor-pointer hover:bg-dark-fill-3 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-green-s text-dark-gray-6 gap-1">
+                  <ThumbsDown size={25} direction="reverse" />
+                  <span className="text-xs">{problemData?.dislikes}</span>
+                </div>
+                <div className="cursor-pointer rounded p-[3px]  ml-4 text-xl transition-colors duration-200 text-yellow-200">
+                  <Star size={25} />
+                </div>
               </div>
-              <div className="rounded p-[3px] ml-4 text-lg transition-colors duration-200 text-brand-red/80">
-                <CheckCircle />
-              </div>
-              <div
-                className="flex items-center cursor-pointer hover:bg-dark-fill-3 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-dark-gray-6"
-                onClick={handleLike}
-              >
-                <ThumbsUp />
-                <span className="text-xs">{problemData.likes}</span>
-              </div>
-              <div className="flex items-center cursor-pointer hover:bg-dark-fill-3 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-green-s text-dark-gray-6">
-                <ThumbsDown />
-                <span className="text-xs">{problemData.dislikes}</span>
-              </div>
-              <div className="cursor-pointer rounded p-[3px]  ml-4 text-xl transition-colors duration-200 text-yellow-200">
-                <Star />
-              </div>
-            </div>
+            )}
 
             {/* Problem Statement*/}
             <div className="text-white text-sm">
@@ -153,6 +187,40 @@ const ProblemDescription = ({
 };
 
 export default ProblemDescription;
+
+function useGetCurrentProblem(problemId: string) {
+  const [currentProblem, setCurrentProblem] = useState<ProblemMetaData | null>(
+    null
+  );
+  const [loading, setLoading] = useState<boolean>(true);
+  const [problemDifficultyClass, setProblemDifficultyClass] =
+    useState<string>("");
+
+  useEffect(() => {
+    // Get problem from DB
+    const getCurrentProblem = async () => {
+      setLoading(true);
+      const docRef = doc(firestore, "problems", problemId);
+      const docSnap = await getDoc(docRef);
+      if (docSnap.exists()) {
+        const problem = docSnap.data();
+        setCurrentProblem({ id: docSnap.id, ...problem } as ProblemMetaData);
+        // easy, medium, hard
+        setProblemDifficultyClass(
+          problem.difficulty === "Easy"
+            ? "bg-olive text-olive"
+            : problem.difficulty === "Medium"
+            ? "bg-dark-yellow text-dark-yellow"
+            : " bg-dark-pink text-dark-pink"
+        );
+      }
+      setLoading(false);
+    };
+    getCurrentProblem();
+  }, [problemId]);
+
+  return { currentProblem, loading, problemDifficultyClass, setCurrentProblem };
+}
 
 function useUsersProblemData(problemId: string) {
   const [data, setData] = useState({
