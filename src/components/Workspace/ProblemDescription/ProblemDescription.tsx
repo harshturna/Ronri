@@ -50,7 +50,9 @@ const ProblemDescription = ({ problem }: ProblemDescriptionProps) => {
           transaction.update(problemRef, {
             likes: problemDoc.data().likes - 1,
           });
-          setCurrentProblem((prev) => ({ ...prev, likes: prev.likes - 1 }));
+          setCurrentProblem((prev) =>
+            prev ? { ...prev, likes: prev.likes - 1 } : null
+          );
           setUserData((prev) => ({ ...prev, liked: false }));
         } else if (disliked) {
           transaction.update(userRef, {
@@ -63,11 +65,15 @@ const ProblemDescription = ({ problem }: ProblemDescriptionProps) => {
             likes: problemDoc.data().likes + 1,
             dislikes: problemDoc.data().dislikes - 1,
           });
-          setCurrentProblem((prev) => ({
-            ...prev,
-            likes: prev.likes + 1,
-            dislikes: prev?.dislikes - 1,
-          }));
+          setCurrentProblem((prev) =>
+            prev
+              ? {
+                  ...prev,
+                  likes: prev.likes + 1,
+                  dislikes: prev?.dislikes - 1,
+                }
+              : null
+          );
           setUserData((prev) => ({ ...prev, disliked: false }));
         } else {
           transaction.update(userRef, {
@@ -76,7 +82,9 @@ const ProblemDescription = ({ problem }: ProblemDescriptionProps) => {
           transaction.update(problemRef, {
             likes: problemDoc.data().likes + 1,
           });
-          setCurrentProblem((prev) => ({ ...prev, likes: prev.likes + 1 }));
+          setCurrentProblem((prev) =>
+            prev ? { ...prev, likes: prev.likes + 1 } : null
+          );
           setUserData((prev) => ({ ...prev, liked: true }));
         }
       }
