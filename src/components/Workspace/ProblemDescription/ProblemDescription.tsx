@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth, firestore } from "@/firebase/firebase";
-import { doc, getDoc, runTransaction } from "firebase/firestore";
+import {
+  arrayRemove,
+  arrayUnion,
+  doc,
+  getDoc,
+  runTransaction,
+  updateDoc,
+} from "firebase/firestore";
 import { CheckCircle, Star, ThumbsDown, ThumbsUp } from "lucide-react";
 import { Problem, ProblemMetaData } from "@/constants/types/problems";
 import { toast } from "react-toastify";
@@ -25,15 +32,20 @@ const ProblemDescription = ({ problem }: ProblemDescriptionProps) => {
     problemDifficultyClass,
     setCurrentProblem,
   } = useGetCurrentProblem(problem.id);
+  const [updating, setUpdating] = useState(false);
 
   const [user] = useAuthState(auth);
 
   const handleLike = async () => {
     if (!user) {
-      toast.error("You must be logged in to like a problem");
+      toast.error("You must be logged in to like a problem", {
+        position: "top-left",
+        theme: "dark",
+      });
       return;
     }
-
+    if (updating) return;
+    setUpdating(true);
     await runTransaction(firestore, async (transaction) => {
       const userRef = doc(firestore, "users", user.uid);
       const problemRef = doc(firestore, "problems", problem.id);
@@ -42,6 +54,7 @@ const ProblemDescription = ({ problem }: ProblemDescriptionProps) => {
 
       if (userDoc.exists() && problemDoc.exists()) {
         if (liked) {
+          // remove problem id from likedProblems on user document, decrement likes on problem document
           transaction.update(userRef, {
             likedProblems: userDoc
               .data()
@@ -50,13 +63,14 @@ const ProblemDescription = ({ problem }: ProblemDescriptionProps) => {
           transaction.update(problemRef, {
             likes: problemDoc.data().likes - 1,
           });
+
           setCurrentProblem((prev) =>
             prev ? { ...prev, likes: prev.likes - 1 } : null
           );
           setUserData((prev) => ({ ...prev, liked: false }));
         } else if (disliked) {
           transaction.update(userRef, {
-            likedProblmes: [...userDoc.data().likedProblems, problem.id],
+            likedProblems: [...userDoc.data().likedProblems, problem.id],
             dislikedProblems: userDoc
               .data()
               .dislikedProblems.filter((id: string) => id !== problem.id),
@@ -65,16 +79,13 @@ const ProblemDescription = ({ problem }: ProblemDescriptionProps) => {
             likes: problemDoc.data().likes + 1,
             dislikes: problemDoc.data().dislikes - 1,
           });
+
           setCurrentProblem((prev) =>
             prev
-              ? {
-                  ...prev,
-                  likes: prev.likes + 1,
-                  dislikes: prev?.dislikes - 1,
-                }
+              ? { ...prev, likes: prev.likes + 1, dislikes: prev.dislikes - 1 }
               : null
           );
-          setUserData((prev) => ({ ...prev, disliked: false }));
+          setUserData((prev) => ({ ...prev, liked: true, disliked: false }));
         } else {
           transaction.update(userRef, {
             likedProblems: [...userDoc.data().likedProblems, problem.id],
@@ -89,6 +100,100 @@ const ProblemDescription = ({ problem }: ProblemDescriptionProps) => {
         }
       }
     });
+    setUpdating(false);
+  };
+
+  const handleDislike = async () => {
+    if (!user) {
+      toast.error("You must be logged in to dislike a problem", {
+        position: "top-left",
+        theme: "dark",
+      });
+      return;
+    }
+    if (updating) return;
+    setUpdating(true);
+    await runTransaction(firestore, async (transaction) => {
+      const userRef = doc(firestore, "users", user.uid);
+      const problemRef = doc(firestore, "problems", problem.id);
+      const userDoc = await transaction.get(userRef);
+      const problemDoc = await transaction.get(problemRef);
+
+      if (userDoc.exists() && problemDoc.exists()) {
+        // already disliked, already liked, not disliked or liked
+        if (disliked) {
+          transaction.update(userRef, {
+            dislikedProblems: userDoc
+              .data()
+              .dislikedProblems.filter((id: string) => id !== problem.id),
+          });
+          transaction.update(problemRef, {
+            dislikes: problemDoc.data().dislikes - 1,
+          });
+          setCurrentProblem((prev) =>
+            prev ? { ...prev, dislikes: prev.dislikes - 1 } : null
+          );
+          setUserData((prev) => ({ ...prev, disliked: false }));
+        } else if (liked) {
+          transaction.update(userRef, {
+            dislikedProblems: [...userDoc.data().dislikedProblems, problem.id],
+            likedProblems: userDoc
+              .data()
+              .likedProblems.filter((id: string) => id !== problem.id),
+          });
+          transaction.update(problemRef, {
+            dislikes: problemDoc.data().dislikes + 1,
+            likes: problemDoc.data().likes - 1,
+          });
+          setCurrentProblem((prev) =>
+            prev
+              ? { ...prev, dislikes: prev.dislikes + 1, likes: prev.likes - 1 }
+              : null
+          );
+          setUserData((prev) => ({ ...prev, disliked: true, liked: false }));
+        } else {
+          transaction.update(userRef, {
+            dislikedProblems: [...userDoc.data().dislikedProblems, problem.id],
+          });
+          transaction.update(problemRef, {
+            dislikes: problemDoc.data().dislikes + 1,
+          });
+          setCurrentProblem((prev) =>
+            prev ? { ...prev, dislikes: prev.dislikes + 1 } : null
+          );
+          setUserData((prev) => ({ ...prev, disliked: true }));
+        }
+      }
+    });
+    setUpdating(false);
+  };
+
+  const handleStar = async () => {
+    if (!user) {
+      toast.error("You must be logged in to dislike a problem", {
+        position: "top-left",
+        theme: "dark",
+      });
+      return;
+    }
+    if (updating) return;
+    setUpdating(true);
+
+    if (!starred) {
+      const userRef = doc(firestore, "users", user.uid);
+      await updateDoc(userRef, {
+        starredProblems: arrayUnion(problem.id),
+      });
+      setUserData((prev) => ({ ...prev, starred: true }));
+    } else {
+      const userRef = doc(firestore, "users", user.uid);
+      await updateDoc(userRef, {
+        starredProblems: arrayRemove(problem.id),
+      });
+      setUserData((prev) => ({ ...prev, starred: false }));
+    }
+
+    setUpdating(false);
   };
 
   return (
@@ -126,8 +231,9 @@ const ProblemDescription = ({ problem }: ProblemDescriptionProps) => {
                 >
                   {problemData?.difficulty}
                 </div>
-                <div className="rounded p-[3px] ml-4 text-lg transition-colors duration-200 text-brand-red/80">
-                  <CheckCircle />
+                <div className="rounded p-[3px] ml-4 text-lg transition-colors duration-200">
+                  {!solved && <CheckCircle color="rgb(229 231 235 / 0.1)" />}
+                  {solved && <CheckCircle color="rgb(187 67 44)" />}
                 </div>
                 <div
                   className="flex items-center cursor-pointer hover:bg-dark-fill-3 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-dark-gray-6 gap-1"
@@ -137,12 +243,28 @@ const ProblemDescription = ({ problem }: ProblemDescriptionProps) => {
                   {!liked && <ThumbsUp size={25} />}
                   <span className="text-xs">{problemData?.likes}</span>
                 </div>
-                <div className="flex items-center cursor-pointer hover:bg-dark-fill-3 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-green-s text-dark-gray-6 gap-1">
-                  <ThumbsDown size={25} direction="reverse" />
+                <div
+                  className="flex items-center cursor-pointer hover:bg-dark-fill-3 space-x-1 rounded p-[3px]  ml-4 text-lg transition-colors duration-200 text-green-s text-dark-gray-6 gap-1"
+                  onClick={handleDislike}
+                >
+                  {disliked && (
+                    <ThumbsDown size={25} fill="rgb(187 67 44 / 0.8)" />
+                  )}
+                  {!disliked && <ThumbsDown size={25} direction="reverse" />}
                   <span className="text-xs">{problemData?.dislikes}</span>
                 </div>
-                <div className="cursor-pointer rounded p-[3px]  ml-4 text-xl transition-colors duration-200 text-yellow-200">
-                  <Star size={25} />
+                <div
+                  className="cursor-pointer rounded p-[3px]  ml-4 text-xl transition-colors duration-200 text-yellow-200/40"
+                  onClick={handleStar}
+                >
+                  {!starred && <Star size={25} />}
+                  {starred && (
+                    <Star
+                      size={25}
+                      color="rgb(254, 240, 138)"
+                      fill="rgb(254, 240, 138)"
+                    />
+                  )}
                 </div>
               </div>
             )}

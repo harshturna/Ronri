@@ -6,6 +6,9 @@ import { auth } from "@/firebase/firebase";
 import Logout from "../Buttons/Logout";
 import { ChevronRight, ChevronLeft, LayoutList } from "lucide-react";
 import Timer from "../Timer/Timer";
+import { usePathname, useRouter } from "next/navigation";
+import { problems } from "@/constants/code-problems";
+import { Problem } from "@/constants/types/problems";
 
 interface TopbarProps {
   isProblemsPage?: boolean;
@@ -13,6 +16,33 @@ interface TopbarProps {
 
 const Topbar = ({ isProblemsPage }: TopbarProps) => {
   const [user] = useAuthState(auth);
+  const pathName = usePathname();
+  const router = useRouter();
+
+  const handleProblemChange = (isForward: boolean) => {
+    const pId = pathName?.split("/").at(-1);
+    const { order } = problems[pId as string] as Problem;
+    const direction = isForward ? 1 : -1;
+    const nextProblemOrder = order + direction;
+    const nextProblemKey = Object.keys(problems).find(
+      (key) => problems[key].order === nextProblemOrder
+    );
+
+    if (isForward && !nextProblemKey) {
+      const firstProblemKey = Object.keys(problems).find(
+        (key) => problems[key].order === 1
+      );
+      router.push(`/problems/${firstProblemKey}`);
+    } else if (!isForward && !nextProblemKey) {
+      const lastProblemKey = Object.keys(problems).find(
+        (key) => problems[key].order === Object.keys(problems).length
+      );
+      router.push(`/problems/${lastProblemKey}`);
+    } else {
+      router.push(`/problems/${nextProblemKey}`);
+    }
+  };
+
   return (
     <nav className="relative flex h-[50px] w-full shrink-0 items-center px-5 py-8 bg-stone-900/30 border-b-2 border-stone-900">
       <div
@@ -27,7 +57,10 @@ const Topbar = ({ isProblemsPage }: TopbarProps) => {
 
         {isProblemsPage && (
           <div className="flex items-center gap-4 flex-1 justify-center">
-            <div className="flex items-center justify-center rounded bg-gray-200/10 hover:bg-gray-200/15 h-5 w-5 sm:h-8 sm:w-8 cursor-pointer">
+            <div
+              className="flex items-center justify-center rounded bg-gray-200/10 hover:bg-gray-200/15 h-5 w-5 sm:h-8 sm:w-8 cursor-pointer"
+              onClick={() => handleProblemChange(false)}
+            >
               <ChevronLeft />
             </div>
             <Link
@@ -39,7 +72,10 @@ const Topbar = ({ isProblemsPage }: TopbarProps) => {
               </div>
               <p className="text-xs sm:text-base">Problems List</p>
             </Link>
-            <div className="flex items-center justify-center rounded bg-gray-200/10 hover:bg-gray-200/15 h-5 w-5 sm:h-8 sm:w-8 cursor-pointer">
+            <div
+              className="flex items-center justify-center rounded bg-gray-200/10 hover:bg-gray-200/15 h-5 w-5 sm:h-8 sm:w-8 cursor-pointer"
+              onClick={() => handleProblemChange(true)}
+            >
               <ChevronRight />
             </div>
           </div>
