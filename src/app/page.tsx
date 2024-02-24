@@ -1,38 +1,27 @@
-import ProblemsTable from "@/components/ProblemsTable/ProblemsTable";
+import Features from "@/components/Features/Features";
 import Topbar from "@/components/Topbar/Topbar";
+import Link from "next/link";
 
 export default function Home() {
   return (
     <main className="min-h-screen text-white">
       <Topbar />
-      <h1 className="text-2xl text-center text-gray-700 dark:text-gray-400 font-medium uppercase mt-10 mb-5">
-        &ldquo; QUALITY OVER QUANTITY &rdquo; 👇
-      </h1>
+      <div className="my-10">
+        <h1 className="text-4xl md:text-6xl text-center font-medium mt-10 mb-5">
+          <span className="text-brand-red">Greatness</span> is <br />
+          just one step away
+        </h1>
 
-      <div className="relative overflow-x-auto mx-auto px-6 pb-10 ">
-        <table className="text-xs md:text-sm text-left text-gray-500 dark:text-gray-400 sm:w-7/12 w-full max-w-[1200px] mx-auto">
-          <thead className="text-xs text-gray-700 uppercase dark:text-gray-400 border-b ">
-            <tr>
-              <th scope="col" className="px-1 py-3 w-0 font-medium">
-                Status
-              </th>
-              <th scope="col" className="px-6 py-3 w-0 font-medium">
-                Title
-              </th>
-              <th
-                scope="col"
-                className="px-6 py-3 w-0 font-medium hidden sm:table-cell"
-              >
-                Category
-              </th>
-              <th scope="col" className="px-6 py-3 w-0 font-medium">
-                Difficulty
-              </th>
-            </tr>
-          </thead>
-          <ProblemsTable />
-        </table>
+        <div className="flex items-center justify-center">
+          <Link
+            href="/auth/login"
+            className="text-center bg-brand-red px-3 py-2 md:px-4 md:py-3 rounded-sm hover:bg-brand-red-s"
+          >
+            Get Started
+          </Link>
+        </div>
       </div>
+      <Features />
     </main>
   );
 }
