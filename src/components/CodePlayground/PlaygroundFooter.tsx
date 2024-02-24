@@ -1,6 +1,10 @@
 import { ChevronUp } from "lucide-react";
 
-const PlaygroundFooter = () => {
+interface PlaygroundFooterProps {
+  handleSubmit: () => void;
+}
+
+const PlaygroundFooter = ({ handleSubmit }: PlaygroundFooterProps) => {
   return (
     <div className="flex bg-stone-950 absolute bottom-0 z-10 w-full">
       <div className="mx-5 my-[10px] flex justify-between w-full">
@@ -16,7 +20,10 @@ const PlaygroundFooter = () => {
           <button className="px-3 py-1.5 text-sm font-medium items-center whitespace-nowrap transition-all focus:outline-none inline-flex bg-stone-500/10  hover:bg-stone-500/15 text-dark-label-2 rounded-lg">
             Run
           </button>
-          <button className="px-3 py-1.5 font-medium items-center transition-all focus:outline-none inline-flex text-sm text-white bg-emerald-500/80 hover:bg-emerald-500/60 rounded-lg">
+          <button
+            className="px-3 py-1.5 font-medium items-center transition-all focus:outline-none inline-flex text-sm text-white bg-emerald-500/80 hover:bg-emerald-500/60 rounded-lg"
+            onClick={handleSubmit}
+          >
             Submit
           </button>
         </div>
