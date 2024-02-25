@@ -39,7 +39,7 @@ const ProblemsTable = async () => {
             <td className="px-6 py-4">
               <Link
                 href={`/problems/${problem.id}`}
-                className="text-brand-red/60 hover:text-brand-red/90"
+                className="text-brand-red/80 hover:text-brand-red/90"
               >
                 {problem.title}
               </Link>

@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import { Inter, Palanquin } from "next/font/google";
 import "./globals.css";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const inter = Inter({ subsets: ["latin"] });
+const palanquin = Palanquin({
+  subsets: ["latin"],
+  weight: ["100", "300", "700"],
+});
 
 export const metadata: Metadata = {
   title: "Ronri",
@@ -18,7 +21,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.className} mx-auto max-w-[2400px] text-white`}>
+      <body
+        className={`${palanquin.className} mx-auto max-w-[2400px] text-white`}
+      >
         <ToastContainer
           theme="dark"
           position="bottom-right"

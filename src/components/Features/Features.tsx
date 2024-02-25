@@ -1,11 +1,10 @@
 import { Code, ThumbsUp, Trophy } from "lucide-react";
 import Image from "next/image";
-import feature_one from "../../../public/feature_one.png";
 
 const Features = () => {
   return (
-    <div className="mx-10 flex flex-col gap-4 ">
-      <div className="flex bg-[#502e232a] border-2 border-[#432b2237] p-4 md:p-12 rounded-md">
+    <div className="grid grid-cols-1 gap-5 mx-8 md:mx-[6rem] lg:mx-auto pb-5 max-w-[1000px] lg:grid-cols-2 ">
+      <div className="flex bg-[#4d281c2e] border-2 border-[#432b2237] p-12 rounded-md lg:col-span-2">
         <div>
           <Code className="p-2 bg-brand-red-s rounded-lg" size={50} />
           <h3 className="text-2xl my-3">Sharpen your coding skills</h3>
@@ -16,9 +15,8 @@ const Features = () => {
             up any of the 55+ programming languages supported.
           </p>
         </div>
-        <Image src={feature_one} alt="feature one" width={300} height={600} />
       </div>
-      <div className="flex bg-stone-900/30 p-4 md:p-12 border-2 border-stone-900 rounded-md">
+      <div className="flex bg-stone-900/30 p-12 border-2 border-stone-900 rounded-md">
         <div className="">
           <ThumbsUp className="p-2 bg-stone-900/70 rounded-lg" size={50} />
           <h3 className="text-2xl my-3">Get instant feedback</h3>
@@ -29,9 +27,8 @@ const Features = () => {
             practice.
           </p>
         </div>
-        <p>IMAGE</p>
       </div>
-      <div className="flex bg-stone-900/30 p-4 md:p-12 rounded-md border-2 border-stone-900">
+      <div className="flex bg-stone-900/30 p-12 rounded-md border-2 border-stone-900">
         <div>
           <Trophy className="p-2 bg-stone-900/70 rounded-lg" size={50} />
           <h3 className="text-2xl my-3">Earn ranks and honor</h3>
@@ -41,7 +38,6 @@ const Features = () => {
             your software development skills to your highest potential.
           </p>
         </div>
-        <p>IMAGE</p>
       </div>
     </div>
   );

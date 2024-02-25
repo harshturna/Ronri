@@ -19,6 +19,9 @@ const Topbar = ({ isProblemsPage }: TopbarProps) => {
   const pathName = usePathname();
   const router = useRouter();
 
+  const isHome = pathName.split("/").at(-1) === "";
+  console.log(isHome);
+
   const handleProblemChange = (isForward: boolean) => {
     const pId = pathName?.split("/").at(-1);
     const { order } = problems[pId as string] as Problem;
@@ -83,20 +86,19 @@ const Topbar = ({ isProblemsPage }: TopbarProps) => {
 
         <div className="flex items-center space-x-4 flex-1 justify-end">
           {/* TODO: Remove the problms link from the problems page once homepage is added  */}
-          {!isProblemsPage && (
+          {isHome && (
             <div>
-              <Link
-                href="/problems"
-                className="bg-dark-fill-3 py-2 px-2 cursor-pointer rounded bg-brand-red hover:bg-brand-red-s text-xs sm:text-sm sm:py-2 sm:px-3"
-              >
-                Problems
+              <Link href="/problems">
+                <button className="bg-dark-fill-3 py-2 px-2 cursor-pointer rounded bg-brand-red hover:bg-brand-red-s text-xs sm:text-sm sm:py-2 sm:px-3">
+                  Problems
+                </button>
               </Link>
             </div>
           )}
           {user && isProblemsPage && <Timer />}
           {!user && (
             <Link href="/auth/login">
-              <button className="bg-gray-200/10 py-2 px-2 text-xs cursor-pointer rounded hover:bg-gray-200/15 sm:py-1.5 sm:px-3 sm:text-sm">
+              <button className="bg-gray-200/10 py-2 px-2 text-xs cursor-pointer rounded hover:bg-gray-200/15 sm:py-2 sm:px-3 sm:text-sm">
                 Get Started
               </button>
             </Link>
