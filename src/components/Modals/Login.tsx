@@ -30,10 +30,21 @@ const Login = () => {
     } catch (error: any) {}
   };
 
+  const handleGuestLogin = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(
+        "guest@email.com",
+        "guest@email.com"
+      );
+      if (!user) return;
+      router.push("/");
+    } catch (error: any) {}
+  };
+
   return (
     <form className="space-y-6 px-6 py-4" onSubmit={handleLogin}>
       <h3 className="text-xl font-medium text-white/70">
-        Login to <span className="text-brand-red">LeetCode</span>
+        Login to <span className="text-brand-red">ronri</span>
       </h3>
       <div>
         <label
@@ -78,7 +89,7 @@ const Login = () => {
       {error && (
         <p className="text-red-500 text-sm text-center">{error.message}</p>
       )}
-      <button className="flex w-full justify-end">
+      <button className="flex w-full justify-end" type="submit">
         <Link
           href="/auth/reset-password"
           className="text-sm block text-gray-500 hover:underline w-full text-right"
@@ -92,6 +103,13 @@ const Login = () => {
           Create an account
         </Link>
       </div>
+      <h4 className="text-center">OR</h4>
+      <button
+        className="bg-gray-200/10 py-2 px-2 text-sm cursor-pointer rounded hover:bg-gray-200/15 block w-[100%]"
+        onClick={handleGuestLogin}
+      >
+        Explore the app as guest
+      </button>
     </form>
   );
 };

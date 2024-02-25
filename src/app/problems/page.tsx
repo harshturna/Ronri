@@ -5,8 +5,8 @@ export default function ProblemsPage() {
   return (
     <main className="min-h-screen text-white">
       <Topbar />
-      <h1 className="text-2xl text-center text-gray-700 dark:text-gray-400 font-medium uppercase mt-10 mb-5">
-        Problems
+      <h1 className="text-2xl text-center text-gray-700 dark:text-gray-400 font-medium uppercase mt-12 mb-5">
+        Put your skills to test
       </h1>
 
       <div className="relative overflow-x-auto mx-auto px-6 pb-10 ">

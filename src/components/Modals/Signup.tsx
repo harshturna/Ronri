@@ -52,7 +52,7 @@ const Signup = () => {
   return (
     <form className="space-y-6 px-6 py-4" onSubmit={handleRegister}>
       <h3 className="text-xl font-medium text-white/70">
-        Register to <span className="text-brand-red">LeetCode</span>
+        Register to <span className="text-brand-red">ronri</span>
       </h3>
       <div>
         <label

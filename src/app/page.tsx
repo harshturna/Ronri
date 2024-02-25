@@ -36,6 +36,20 @@ export default function Home() {
         </div>
         <Features />
       </div>
+      <footer className="mb-6">
+        <hr className="mt-6 mb-6 mx-2 text-muted-foreground lg:my-8 border-t border-stone-800" />
+        <span className="block text-sm text-stone-400 text-center">
+          © {new Date().getFullYear()}{" "}
+          <a
+            target="_blank"
+            href="https://aivia.byharsh.com"
+            className="hover:underline"
+          >
+            ronri
+          </a>
+          . All Rights Reserved.
+        </span>
+      </footer>
     </main>
   );
 }

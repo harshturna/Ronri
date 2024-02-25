@@ -4,6 +4,9 @@ import { reverseLinkedList } from "./reverse-linked-list";
 import { search2DMatrix } from "./search-a-2d-matrix";
 import { twoSum } from "./two-sum";
 import { validParentheses } from "./valid-parentheses";
+import { mergeMettingTimes } from "./merge-meeting-times";
+import { stringCompression } from "./string-compression";
+import { roomScheduling } from "./room-scheduling";
 
 interface ProblemMap {
   [key: string]: Problem;
@@ -15,4 +18,7 @@ export const problems: ProblemMap = {
   "jump-game": jumpGame,
   "search-a-2d-matrix": search2DMatrix,
   "valid-parentheses": validParentheses,
+  "merge-meeting-times": mergeMettingTimes,
+  "string-compression": stringCompression,
+  "room-scheduling": roomScheduling,
 };

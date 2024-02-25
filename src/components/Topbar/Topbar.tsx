@@ -103,9 +103,9 @@ const Topbar = ({ isProblemsPage }: TopbarProps) => {
               </button>
             </Link>
           )}
-          {user && (
+          {/* {user && (
             <div className="cursor-pointer group relative">USER IMAGE</div>
-          )}
+          )} */}
           {user && <Logout />}
         </div>
       </div>

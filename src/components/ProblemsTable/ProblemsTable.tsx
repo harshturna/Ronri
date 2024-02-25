@@ -25,6 +25,8 @@ const ProblemsTable = async () => {
     return <div>There was an error retrieving the data</div>;
   }
 
+  console.log(problems);
+
   return (
     <tbody className="text-white">
       {problems.map((problem, index) => {
