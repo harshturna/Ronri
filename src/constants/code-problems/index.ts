@@ -7,6 +7,8 @@ import { validParentheses } from "./valid-parentheses";
 import { mergeMettingTimes } from "./merge-meeting-times";
 import { stringCompression } from "./string-compression";
 import { roomScheduling } from "./room-scheduling";
+import { maxiumumProfitJobScheduling } from "./maximum-profit-job-scheduling";
+import { findNearestStore } from "./find-nearest-store";
 
 interface ProblemMap {
   [key: string]: Problem;
@@ -21,4 +23,6 @@ export const problems: ProblemMap = {
   "merge-meeting-times": mergeMettingTimes,
   "string-compression": stringCompression,
   "room-scheduling": roomScheduling,
+  "maximum-profit-in-job-scheduling": maxiumumProfitJobScheduling,
+  "find-nearest-store": findNearestStore,
 };
