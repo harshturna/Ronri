@@ -7,6 +7,7 @@ import { findNearestStore } from "./find-nearest-store";
 import { flightItineraryPlanner } from "./flight-itinerary-planner";
 import { apartmentHunting } from "./apartment-hunting";
 import { decodeString } from "./decode-string";
+import { minPathSum } from "./min-path-sum";
 
 interface ProblemMap {
   [key: string]: Problem;
@@ -21,4 +22,5 @@ export const problems: ProblemMap = {
   "flight-itinerary-planner": flightItineraryPlanner,
   "apartment-hunting": apartmentHunting,
   "decode-string": decodeString,
+  "min-path-sum": minPathSum
 };
