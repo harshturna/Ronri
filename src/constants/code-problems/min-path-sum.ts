@@ -80,5 +80,5 @@ export const minPathSum: Problem = {
   starterCode: starterCode,
   handlerFunction: testMinPathSum,
   starterFunctionName: "function minPathSum(",
-  order: 10,
+  order: 9,
 };
