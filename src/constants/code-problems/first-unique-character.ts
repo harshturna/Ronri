@@ -33,7 +33,7 @@ function firstUniqChar(s) {
 
 export const firstUniqueCharacter: Problem = {
   id: "first-unique-character",
-  title: "First Unique Character in a String",
+  title: "10. First Unique Character in a String",
   problemStatement: `
         <p class='mt-3'>
         Given a string, find the first non-repeating character in it and return its index. If it doesn't exist, return -1. You must assume the string contains only lowercase English letters.
