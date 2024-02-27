@@ -20,7 +20,6 @@ const Topbar = ({ isProblemsPage }: TopbarProps) => {
   const router = useRouter();
 
   const isHome = pathName.split("/").at(-1) === "";
-  console.log(isHome);
 
   const handleProblemChange = (isForward: boolean) => {
     const pId = pathName?.split("/").at(-1);

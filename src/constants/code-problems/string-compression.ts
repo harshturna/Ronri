@@ -1,4 +1,5 @@
 import { Problem } from "../types/problems";
+import assert from "assert";
 
 const compressStringHandler = (fn: any) => {
   try {
@@ -6,19 +7,10 @@ const compressStringHandler = (fn: any) => {
     const answers = ["a2b1c5a3", "abcdef", "aabbcc", "z3b3"];
     for (let i = 0; i < tests.length; i++) {
       const result = fn(tests[i]);
-      if (result !== answers[i]) {
-        console.error(
-          `Test case ${i + 1} failed. Expected "${
-            answers[i]
-          }" but got "${result}"`
-        );
-        return false;
-      }
+      assert(result, answers[i]);
     }
-    console.log("All tests passed!");
     return true;
   } catch (error: any) {
-    console.error("Error from compressStringHandler: ", error.message);
     throw new Error(error);
   }
 };
@@ -67,5 +59,5 @@ export const stringCompression: Problem = {
   starterCode: starterCode,
   handlerFunction: compressStringHandler,
   starterFunctionName: "function compressString(",
-  order: 7,
+  order: 2,
 };

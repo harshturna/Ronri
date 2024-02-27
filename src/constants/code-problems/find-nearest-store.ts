@@ -37,18 +37,11 @@ export const testFindNearestStore = (fn: any) => {
       const [stores, userLocation] = tests[i];
       const result = fn(stores, userLocation);
       if (!answers[i].every((val, idx) => val === result[idx])) {
-        console.error(
-          `Test case ${i + 1} failed. Expected "${
-            answers[i]
-          }" but got "${result}"`
-        );
-        return false;
+        throw new Error("AssertionError");
       }
     }
-    console.log("All tests passed!");
     return true;
   } catch (error: any) {
-    console.error("Error from testFindNearestStore: ", error.message);
     throw new Error(error);
   }
 };
@@ -106,5 +99,5 @@ export const findNearestStore: Problem = {
   starterCode: starterCode,
   handlerFunction: testFindNearestStore,
   starterFunctionName: "function findNearestStore(",
-  order: 10,
+  order: 5,
 };

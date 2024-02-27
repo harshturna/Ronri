@@ -20,18 +20,11 @@ const testJobScheduling = (fn: any) => {
       const [startTime, endTime, profit] = tests[i];
       const result = fn(startTime, endTime, profit);
       if (result !== answers[i]) {
-        console.error(
-          `Test case ${i + 1} failed. Expected "${
-            answers[i]
-          }" but got "${result}"`
-        );
-        return false;
+        throw new Error("AssertionError");
       }
     }
-    console.log("All tests passed!");
     return true;
   } catch (error: any) {
-    console.error("Error from testJobScheduling: ", error.message);
     throw new Error(error);
   }
 };
@@ -77,5 +70,5 @@ export const maxiumumProfitJobScheduling: Problem = {
   handlerFunction: testJobScheduling,
   starterCode: starterCode,
   starterFunctionName: "function jobScheduling(",
-  order: 9,
+  order: 4,
 };

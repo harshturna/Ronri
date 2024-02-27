@@ -51,6 +51,7 @@ const CodePlayground = ({ problem, setSuccess }: CodePlaygroundProps) => {
       );
       const cb = new Function(`return ${submissionCode}`)();
 
+      console.log(cb);
       const handler = problems[pId].handlerFunction;
 
       if (typeof handler === "function") {
@@ -64,11 +65,8 @@ const CodePlayground = ({ problem, setSuccess }: CodePlaygroundProps) => {
         }
       }
     } catch (error: any) {
-      if (
-        error.message.startsWith(
-          "AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal"
-        )
-      ) {
+      console.log(error);
+      if (error.message.includes("AssertionError")) {
         toast.error("Oops! One or more test cases failed");
       } else {
         toast.error("Something went wrong");

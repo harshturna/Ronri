@@ -45,15 +45,11 @@ export const mergeMeetingsHandler = (fn: any) => {
         .join(";");
       const answer = answers[i].map((meeting) => meeting.join(",")).join(";");
       if (result !== answer) {
-        console.error(
-          `Test case ${i + 1} failed. Expected [${answer}] but got [${result}]`
-        );
-        return false;
+        throw new Error("AssertionError");
       }
     }
     return true;
   } catch (error: any) {
-    console.error("Error from mergeMeetingsHandler: ", error.message);
     throw new Error(error);
   }
 };
@@ -87,7 +83,7 @@ function mergeMeetings(meetings) {
 
 export const mergeMettingTimes: Problem = {
   id: "merge-meeting-times",
-  title: "6. Merge Meetings Times",
+  title: "1. Merge Meetings Times",
   problemStatement: `<p class="mt-3">
     Your company uses a meeting management system to book meetings throughout the day. Unfortunately, the system does not consolidate overlapping or consecutive meetings, leading to confusion and inefficiency. Your task is to write a function that merges overlapping and consecutive meeting times to streamline the meeting schedule.
     </p>
@@ -114,5 +110,5 @@ export const mergeMettingTimes: Problem = {
   starterCode: starterMergeMettingsTimes,
   handlerFunction: mergeMeetingsHandler,
   starterFunctionName: "function mergeMeetings(",
-  order: 6,
+  order: 1,
 };

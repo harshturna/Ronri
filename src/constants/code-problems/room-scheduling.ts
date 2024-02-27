@@ -25,23 +25,16 @@ const canScheduleMeetingHandler = (fn: any) => {
         [6, 9],
       ],
     ];
-    const answers = [false, true, true];
+    const answers = ["false", "true", "true"];
     for (let i = 0; i < tests.length; i++) {
       const [existingMeetings, newMeeting] = tests[i];
       const result = fn(existingMeetings, newMeeting);
       if (result !== answers[i]) {
-        console.error(
-          `Test case ${i + 1} failed. Expected "${
-            answers[i]
-          }" but got "${result}"`
-        );
-        return false;
+        throw new Error("AssertionError");
       }
     }
-    console.log("All tests passed!");
     return true;
   } catch (error: any) {
-    console.error("Error from canScheduleMeetingHandler: ", error.message);
     throw new Error(error);
   }
 };
@@ -89,5 +82,5 @@ export const roomScheduling: Problem = {
   starterCode: starterRoomScheduling,
   handlerFunction: canScheduleMeetingHandler,
   starterFunctionName: "function canScheduleMeeting(",
-  order: 8,
+  order: 3,
 };
