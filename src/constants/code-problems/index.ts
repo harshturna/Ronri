@@ -9,6 +9,7 @@ import { apartmentHunting } from "./apartment-hunting";
 import { decodeString } from "./decode-string";
 import { minPathSum } from "./min-path-sum";
 import { firstUniqueCharacter } from "./first-unique-character";
+import { restaurantRatings } from "./restaurant-ratings";
 
 interface ProblemMap {
   [key: string]: Problem;
@@ -24,5 +25,6 @@ export const problems: ProblemMap = {
   "apartment-hunting": apartmentHunting,
   "decode-string": decodeString,
   "min-path-sum": minPathSum,
-  "first-unique-character": firstUniqueCharacter
+  "first-unique-character": firstUniqueCharacter,
+  "restaurant-ratings": restaurantRatings
 };
