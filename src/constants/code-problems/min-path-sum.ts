@@ -33,7 +33,8 @@ export const testMinPathSum = (fn: any) => {
 };
 
 const starterCode = `/**
-* Finds the minimum path sum from top left to bottom right of a m x n grid. You can only move either down or right at any point in time.
+* Finds the minimum path sum from top left to bottom right of a m x n grid. 
+You can only move either down or right at any point in time.
 * @param {number[][]} grid - A 2D array of non-negative integers.
 * @return {number} - The minimum path sum.
 */
