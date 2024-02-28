@@ -27,6 +27,7 @@ const Login = () => {
       );
       if (!user) return;
       router.push("/problems");
+      return;
     } catch (error: any) {}
   };
 
@@ -37,7 +38,9 @@ const Login = () => {
         "guest@email.com"
       );
       if (!user) return;
+
       router.push("/problems");
+      return;
     } catch (error: any) {}
   };
 
