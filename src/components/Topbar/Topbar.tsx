@@ -100,7 +100,7 @@ const Topbar = ({ isProblemsPage }: TopbarProps) => {
           {!user && (
             <Link href="/auth/login">
               <button className="bg-gray-200/10 py-2 px-2 text-xs cursor-pointer rounded hover:bg-gray-200/15 sm:py-2 sm:px-3 sm:text-sm">
-                Get Started
+                Log In
               </button>
             </Link>
           )}

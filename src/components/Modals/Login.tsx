@@ -26,7 +26,7 @@ const Login = () => {
         inputs.password
       );
       if (!user) return;
-      router.push("/");
+      router.push("/problems");
     } catch (error: any) {}
   };
 

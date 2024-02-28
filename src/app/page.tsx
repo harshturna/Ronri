@@ -30,7 +30,7 @@ export default function Home() {
               href="/problems"
               className="text-center bg-brand-red px-3 py-2 md:px-4 md:py-3 rounded-sm hover:bg-brand-red-s"
             >
-              Get Started
+              Explore Problems
             </Link>
           </div>
         </div>
