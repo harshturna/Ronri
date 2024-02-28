@@ -18,14 +18,16 @@ async function getProblems() {
   }
 }
 
-const ProblemsTable = async () => {
-  const problems = await getProblems();
+interface ProblemsTable {
+  problems: ProblemMetaData[];
+}
+
+const ProblemsTable = ({ problems }: ProblemsTable) => {
+  // const problems = await getProblems();
 
   if (!problems) {
     return <div>There was an error retrieving the data</div>;
   }
-
-  console.log(problems);
 
   return (
     <tbody className="text-white">
@@ -46,7 +48,7 @@ const ProblemsTable = async () => {
                 {problem.title}
               </Link>
             </td>
-            <td className="px-6 py-4 text-white/50 hidden sm:table-cell">
+            <td className="px-6 py-4 text-white/50 table-cell">
               <span>{problem.category}</span>
             </td>
             <td className="px-6 py-4">
@@ -57,7 +59,7 @@ const ProblemsTable = async () => {
                     : problem.difficulty === "Medium"
                     ? "text-yellow-600"
                     : "text-red-500/80"
-                }`}
+                } bg-emerald-100 inline-block rounded-[21px] bg-opacity-[.15] px-2.5 py-1 text-xs font-medium capitalize`}
               >
                 {problem.difficulty}
               </span>
