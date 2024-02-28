@@ -28,7 +28,7 @@ export default async function ProblemsPage() {
   return (
     <main className="min-h-screen text-white">
       <Topbar />
-      <h1 className="text-2xl font-bold text-center text-brand-red dark:text-brand-red  uppercase mt-5 mb-5 bg-stone-900/30  w-10/12 sm:w-7/12  max-w-[1200px] mx-auto py-3 rounded-md">
+      <h1 className="text-1xl md:text-2xl font-bold text-center text-brand-red dark:text-brand-red  uppercase mt-5 mb-5 bg-stone-900/30  w-10/12 sm:w-7/12  max-w-[1200px] mx-auto py-3 rounded-md">
         Put your skills to test
       </h1>
 
