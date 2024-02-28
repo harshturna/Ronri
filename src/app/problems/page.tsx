@@ -28,7 +28,7 @@ export default async function ProblemsPage() {
   return (
     <main className="min-h-screen text-white">
       <Topbar />
-      <h1 className="text-2xl text-center text-brand-red dark:text-brand-red  uppercase mt-5 mb-5 bg-stone-900/30  w-10/12 sm:w-7/12  max-w-[1200px] mx-auto py-3 rounded-md">
+      <h1 className="text-2xl font-bold text-center text-brand-red dark:text-brand-red  uppercase mt-5 mb-5 bg-stone-900/30  w-10/12 sm:w-7/12  max-w-[1200px] mx-auto py-3 rounded-md">
         Put your skills to test
       </h1>
 
@@ -57,7 +57,7 @@ export default async function ProblemsPage() {
         </div>
       </div>
       <div className="justify-center w-10/12 text-gray-400 sm:w-7/12  max-w-[1200px] mx-auto mb-2 flex ">
-        <div className="border-b-[1px] flex gap-2 pb-3 pl-2 pr-3 border-brand-red/70">
+        <div className="border-b-[1px] font-bold flex gap-2 pb-3 pl-2 pr-3 border-brand-red/70">
           <AudioWaveform />
           <p>Library</p>
         </div>
