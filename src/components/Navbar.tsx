@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+import Logo from "../../public/logo.png";
 
 const Navbar = () => {
   return (
@@ -7,13 +9,9 @@ const Navbar = () => {
         href="/"
         className="flex items-center justify-center h-20 text-white"
       >
-        LOGO
+        <Image src={Logo} alt="ronri logo" width={40} height={40} />
       </Link>
-      <div className="flex items-center">
-        {/* <button className="bg-brand-red text-white py-2 sm:px-6 rounded-md text-sm hover:bg-brand-red-s">
-          Sign in
-        </button> */}
-      </div>
+      <div className="flex items-center"></div>
     </div>
   );
 };

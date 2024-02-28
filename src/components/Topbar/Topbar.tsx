@@ -9,6 +9,8 @@ import Timer from "../Timer/Timer";
 import { usePathname, useRouter } from "next/navigation";
 import { problems } from "@/constants/code-problems";
 import { Problem } from "@/constants/types/problems";
+import Image from "next/image";
+import Logo from "../../../public/logo.png";
 
 interface TopbarProps {
   isProblemsPage?: boolean;
@@ -46,15 +48,15 @@ const Topbar = ({ isProblemsPage }: TopbarProps) => {
   };
 
   return (
-    <nav className="relative flex h-[50px] w-full shrink-0 items-center px-5 py-8 bg-stone-900/30 border-b-2 border-stone-900">
+    <nav className=" flex h-[50px] w-full shrink-0 items-center px-5 py-8 bg-stone-900/30 border-b-2 border-stone-900">
       <div
         className={`flex w-full items-center justify-between ${
           isProblemsPage ? "" : "max-w-[1200px] mx-auto"
         }`}
       >
-        <Link href="/" className="h-[22px] flex-1">
+        <Link href="/problems" className=" flex-1">
           {/* LOGO */}
-          LOGO
+          <Image width={40} height={40} src={Logo} alt="Ronri Logo" />
         </Link>
 
         {isProblemsPage && (

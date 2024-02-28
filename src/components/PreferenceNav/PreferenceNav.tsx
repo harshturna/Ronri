@@ -39,14 +39,14 @@ const PreferenceNav = () => {
         </button>
       </div>
       <div className="flex items-center m-2">
-        <button className="relative rounded px-3 py-1.5 font-medium items-center transition-all focus:outline-none inline-flex ml-auto p-1 mr- group">
+        {/* <button className="relative rounded px-3 py-1.5 font-medium items-center transition-all focus:outline-none inline-flex ml-auto p-1 mr- group">
           <div className="h-4 w-4 text-white/40 font-bold text-lg">
             <Settings />
           </div>
           <div className="absolute w-auto p-2 text-sm m-2 min-w-max translate-x-3 right-0 top-7 z10 rounded-md shadow-md text-stone-600 bg-gray-200 origin-center scale-0 transition-all duration-100 ease-linear group-hover:scale-100">
             Settings
           </div>
-        </button>
+        </button> */}
         <button className="relative rounded px-3 py-1.5 font-medium items-center transition-all focus:outline-none inline-flex ml-auto p-1 mr- group">
           <div
             className="h-4 w-4 text-white/40 font-bold text-lg"

@@ -27,7 +27,7 @@ export default function Home() {
           </h1>
           <div className="flex items-center justify-center mt-6">
             <Link
-              href="/auth/login"
+              href="/problems"
               className="text-center bg-brand-red px-3 py-2 md:px-4 md:py-3 rounded-sm hover:bg-brand-red-s"
             >
               Get Started
