@@ -45,7 +45,7 @@ const Signup = () => {
       };
       await setDoc(doc(firestore, "users", newUser.user.uid), userData);
 
-      router.push("/");
+      router.push("/problems");
     } catch (error: any) {}
   };
 

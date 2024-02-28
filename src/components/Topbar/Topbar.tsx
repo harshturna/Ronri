@@ -54,7 +54,7 @@ const Topbar = ({ isProblemsPage }: TopbarProps) => {
           isProblemsPage ? "" : "max-w-[1200px] mx-auto"
         }`}
       >
-        <Link href="/problems" className=" flex-1">
+        <Link href="/" className=" flex-1">
           {/* LOGO */}
           <Image width={40} height={40} src={Logo} alt="Ronri Logo" />
         </Link>
@@ -68,13 +68,15 @@ const Topbar = ({ isProblemsPage }: TopbarProps) => {
               <ChevronLeft />
             </div>
             <Link
-              href="/"
+              href="/problems"
               className="flex items-center gap-2 font-sm sm:font-medium max-w-[170px] text-gray-300 cursor-pointer"
             >
               <div>
                 <LayoutList />
               </div>
-              <p className="text-xs sm:text-base">Problems List</p>
+              <p className="text-xs hidden md:block md:text-base">
+                Problems List
+              </p>
             </Link>
             <div
               className="flex items-center justify-center rounded bg-gray-200/10 hover:bg-gray-200/15 h-5 w-5 sm:h-8 sm:w-8 cursor-pointer"

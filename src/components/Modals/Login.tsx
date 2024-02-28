@@ -37,7 +37,7 @@ const Login = () => {
         "guest@email.com"
       );
       if (!user) return;
-      router.push("/");
+      router.push("/problems");
     } catch (error: any) {}
   };
 
