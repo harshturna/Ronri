@@ -43,12 +43,12 @@ const ProblemsTable = ({ problems }: ProblemsTable) => {
             <td className="px-6 py-4">
               <Link
                 href={`/problems/${problem.id}`}
-                className="text-brand-red/80 hover:text-brand-red/90"
+                className="text-brand-red/80 hover:text-brand-red/90 font-bold"
               >
                 {problem.title}
               </Link>
             </td>
-            <td className="px-6 py-4 text-white/50 table-cell">
+            <td className="px-6 py-4 text-white/50 table-cell font-bold">
               <span>{problem.category}</span>
             </td>
             <td className="px-6 py-4">
