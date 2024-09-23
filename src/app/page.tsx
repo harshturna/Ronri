@@ -44,7 +44,6 @@ export default function Home() {
             Ronri
             </div>
           <a className="text-sm text-stone-600" href="https://harshturna.com" targe="_blank">by harsh</a>
-        </span>
       </footer>
     </main>
   );
