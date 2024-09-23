@@ -38,12 +38,12 @@ export default function Home() {
       </div>
       <footer className="mb-6">
         <hr className="mt-6 mb-6 mx-2 text-muted-foreground lg:my-8 border-t border-stone-800" />
-        <div className="block text-stone-400 text-center">
+        <div className="block text-stone-400 text-center flex items-center justify-center">
           <div className ="flex items-center gap-1 mr-1">
             <Image width={40} height={40} src="/logo.png" alt="Ronri Logo" />
             Ronri
             </div>
-          <a className="text-sm text-stone-600" href="https://harshturna.com" target="_blank">by harsh</a>
+          <a className="text-sm text-stone-600 mt-[3px]" href="https://harshturna.com" target="_blank">by harsh</a>
           </div>
       </footer>
     </main>
