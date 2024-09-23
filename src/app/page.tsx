@@ -43,7 +43,7 @@ export default function Home() {
             <Image width={40} height={40} src="/logo.png" alt="Ronri Logo" />
             Ronri
             </div>
-          <a className="text-sm text-stone-600" href="https://harshturna.com" targe="_blank">by harsh</a>
+          <a className="text-sm text-stone-600" href="https://harshturna.com" target="_blank">by harsh</a>
           </div>
       </footer>
     </main>
