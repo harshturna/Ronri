@@ -40,7 +40,7 @@ const ProblemsTable = ({ problems }: ProblemsTable) => {
             }`}
             onClick={() => problemFilterHandler("All")}
           >
-            All Problems 11
+            All Problems (11)
           </span>
         </div>
         <div className="flex gap-2 flex-wrap">
@@ -50,7 +50,7 @@ const ProblemsTable = ({ problems }: ProblemsTable) => {
             }`}
             onClick={() => problemFilterHandler("Array")}
           >
-            Array 3
+            Array (3)
           </span>
           <span
             className={`cursor-pointer text-xs py-2 px-3 rounded-xl ${
@@ -58,7 +58,7 @@ const ProblemsTable = ({ problems }: ProblemsTable) => {
             }`}
             onClick={() => problemFilterHandler("String")}
           >
-            String 2
+            String (2)
           </span>
           <span
             className={`cursor-pointer text-xs py-2 px-3 rounded-xl ${
@@ -68,7 +68,7 @@ const ProblemsTable = ({ problems }: ProblemsTable) => {
             }`}
             onClick={() => problemFilterHandler("Hash Map")}
           >
-            Hash Map 2
+            Hash Map (2)
           </span>
           <span
             className={`cursor-pointer text-xs py-2 px-3 rounded-xl ${
@@ -76,7 +76,7 @@ const ProblemsTable = ({ problems }: ProblemsTable) => {
             }`}
             onClick={() => problemFilterHandler("Search")}
           >
-            Search 2
+            Search (2)
           </span>
           <span
             className={`cursor-pointer text-xs py-2 px-3 rounded-xl ${
@@ -86,7 +86,7 @@ const ProblemsTable = ({ problems }: ProblemsTable) => {
             }`}
             onClick={() => problemFilterHandler("Dynamic Programming")}
           >
-            Dynamic Programming 2
+            Dynamic Programming (2)
           </span>
         </div>
       </div>
