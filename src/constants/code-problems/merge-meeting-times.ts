@@ -58,27 +58,9 @@ const starterMergeMettingsTimes = `/**
 * @param {Array<[number, number]>} meetings - An array of tuples [start, end] representing the meeting times.
 * @return {Array<[number, number]>} - An array of tuples [start, end] representing the consolidated meeting times.
 */
+
 function mergeMeetings(meetings) {
-  if (!meetings.length) return [];
-    
-    // Sort meetings by start time
-    meetings.sort((a, b) => a[0] - b[0]);
-    
-    const mergedMeetings = [meetings[0]];
-    
-    for (let i = 1; i < meetings.length; i++) {
-        const [currentStart, currentEnd] = meetings[i];
-        const [lastMergedStart, lastMergedEnd] = mergedMeetings[mergedMeetings.length - 1];
-        
-        // If the current meeting overlaps with the last merged meeting, use the later end time
-        if (currentStart <= lastMergedEnd) {
-            mergedMeetings[mergedMeetings.length - 1] = [lastMergedStart, Math.max(lastMergedEnd, currentEnd)];
-        } else {
-            mergedMeetings.push([currentStart, currentEnd]);
-        }
-    }
-    
-    return mergedMeetings;
+  // WRITE CODE HERE
 }`;
 
 export const mergeMettingTimes: Problem = {
