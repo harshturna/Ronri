@@ -41,17 +41,12 @@ const CodePlayground = ({ problem, setSuccess }: CodePlaygroundProps) => {
   };
 
   const handleSubmit = async () => {
-    if (!user) {
-      return toast.error("Login to submit");
-    }
     localStorage.setItem(`code-${pId}`, JSON.stringify(userCode));
     try {
       const submissionCode = userCode.slice(
         userCode.indexOf(problem.starterFunctionName)
       );
       const cb = new Function(`return ${submissionCode}`)();
-
-      console.log(cb);
       const handler = problems[pId].handlerFunction;
 
       if (typeof handler === "function") {
@@ -65,7 +60,6 @@ const CodePlayground = ({ problem, setSuccess }: CodePlaygroundProps) => {
         }
       }
     } catch (error: any) {
-      console.log(error);
       if (error.message.includes("AssertionError")) {
         toast.error("Oops! One or more test cases failed");
       } else {
