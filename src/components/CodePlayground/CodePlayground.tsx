@@ -53,10 +53,12 @@ const CodePlayground = ({ problem, setSuccess }: CodePlaygroundProps) => {
         const success = handler(cb);
         if (success) {
           toast.success("Congrats! All test passed!");
-          const userRef = doc(firestore, "users", user.uid);
-          await updateDoc(userRef, {
-            solvedProblems: arrayUnion(pId),
-          });
+          if (user) {
+            const userRef = doc(firestore, "users", user.uid);
+            await updateDoc(userRef, {
+              solvedProblems: arrayUnion(pId),
+            });
+          }
         }
       }
     } catch (error: any) {
