@@ -3,6 +3,7 @@ import { Inter, Palanquin } from "next/font/google";
 import "./globals.css";
 import { Bounce, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Analytics } from "@vercel/analytics/react";
 
 const palanquin = Palanquin({
   subsets: ["latin"],
@@ -32,6 +33,7 @@ export default function RootLayout({
           transition={Bounce}
         />
         {children}
+        <Analytics />
       </body>
     </html>
   );
