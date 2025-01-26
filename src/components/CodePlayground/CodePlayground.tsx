@@ -62,10 +62,12 @@ const CodePlayground = ({ problem, setSuccess }: CodePlaygroundProps) => {
         }
       }
     } catch (error: any) {
-      if (error.message.includes("AssertionError")) {
+      if (error.message.includes("TypeError")) {
+        toast.error("Incorrect return type, please try again");
+      } else if (error.message.includes("AssertionError")) {
         toast.error("Oops! One or more test cases failed");
       } else {
-        toast.error("Something went wrong");
+        toast.error("Oops! One or more test cases failed");
       }
     }
   };
