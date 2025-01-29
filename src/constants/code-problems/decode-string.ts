@@ -28,38 +28,7 @@ inside the square brackets is being repeated exactly 'k' times. Nested encoding 
 * @return {string} - The decoded string.
 */
 function decodeString(s) {
-    let stack = [];
-    for (let char of s) {
-        if (char !== ']') {
-            // Push everything but closing bracket onto the stack
-            stack.push(char);
-        } else {
-            // Step 1: Pop off everything up to the opening bracket to get the encoded string
-            let decodedString = '';
-            while (stack.length && stack[stack.length - 1] !== '[') {
-                decodedString = stack.pop() + decodedString;
-            }
-            // Pop the opening bracket off the stack
-            stack.pop();
-            
-            // Step 2: Get the number associated with the encoded string
-            let base = 1;
-            let k = 0;
-            while (stack.length && !isNaN(stack[stack.length - 1])) {
-                k += base * (stack.pop() - '0');
-                base *= 10;
-            }
-            
-            // Step 3: Repeat the decoded string k times and push back onto stack
-            let repeatedString = '';
-            for (let i = 0; i < k; i++) {
-                repeatedString += decodedString;
-            }
-            stack.push(repeatedString);
-        }
-    }
-    // Join everything left in the stack to get the final decoded string
-    return stack.join('');
+  // write code here
 }
 `;
 
